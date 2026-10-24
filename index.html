@@ -496,6 +496,13 @@ function openPerson(cn){
   const k=PEOPLE.findIndex(x=>x.cn===cn); if(k<0) return;
   nav={kind:"person",items:PEOPLE,idx:k}; navShow();
 }
+/* 总览授奖词中的人物芯片、年份条中的人物头像：点击打开人物卡（事件委托，随内容重渲染仍然有效） */
+["citeBody","yearban"].forEach(id=>{
+  const box=document.getElementById(id); if(!box) return;
+  box.addEventListener("click",e=>{
+    const c=e.target.closest(".pchip"); if(c&&c.dataset.p) openPerson(c.dataset.p);
+  });
+});
 function openCard(k){if(k<0||k>=shown.length) return; nav={kind:"term",items:shown,idx:k}; navShow();}
 function closeCard(){document.getElementById("mask").classList.remove("on"); document.body.style.overflow="";}
 document.getElementById("mclose").onclick=closeCard;
